@@ -1,0 +1,14 @@
+doctype html
+html
+    head
+        title= title
+        <script src="https://kit.fontawesome.com/35fb68f7ee.js" crossorigin="anonymous"></script>
+        link(rel="stylesheet", href="/static/styles.css")
+    body
+        header
+            include header
+        main
+            block content
+        script(src="/static/[main].js")
+        footer
+            include footer

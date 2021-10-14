@@ -1,0 +1,298 @@
+<div class="deepContainer">
+    <div class="deepColumn">
+        <div class="rowColumn">
+            <p><%=@index.title%></p>
+            <p><%=@index.professor.name%></p>
+            <a id="plusButton">
+                <i class="fas fa-search-plus"></i>
+            </a>
+        </div>
+        <div class="rowColumn">
+            <%=link_to "과제공유 하러가기!", "/homework/lesson/#{@index.id}", method: :get%>
+        </div>
+    </div>
+    <div class="deepColumn">
+        <div style="display: none" id = "lessonDetail" class="detailRowColumn">
+            <div class="tableColumn">
+                <table>
+                    <tr>
+                        <td>분반</td>
+                        <td>이수구분</td>
+                        <td>과목구분</td>
+                        <td>교과적용</td>
+                        <td>캠퍼스</td>
+                        <td>학점</td>
+                        <td>이론</td>
+                        <td>실습</td>
+                        <td>시간표</td>
+                        <td>수강대상</td>
+                    </tr>
+                    <tr>
+                        <td><%=@index.separate_class%></td>
+                        <td><%=@index.separate_major%></td>
+                        <td><%=@index.separate_subject%></td>
+                        <td><%=@index.separate_subject_register%></td>
+                        <td><%=@index.campus%></td>
+                        <td><%=@index.class_target%></td>
+                        <td><%=@index.grade_theory_score%></td>
+                        <td><%=@index.grade_exam_score%></td>
+                        <td><%=@index.class_target%></td>
+                        <td><%=@index.grade_score%></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="deepColumn">
+        <div class="rowColumn">
+            <p> 조회수 <%=@index.view%></p>
+            <% if @index.lesson_user_flags.empty? || @index.lesson_user_flags.find_by_user_id(current_user().id).point_flag == true%>
+                <a href="/lesson/<%=@index.id%>/detail/point/?point=good">
+                    좋아요 <i class="fas fa-heart"><%=@index.goodPoint%></i>
+                </a>
+                <a href="/lesson/<%=@index.id%>/detail/point/?point=bad">
+                    싫어요 <i class="far fa-heart"><%=@index.badPoint%></i>
+                </a>
+            <% else%>
+                <p>
+                    좋아요 <i class="fas fa-heart"><%=@index.goodPoint%></i>
+                </p>
+                <p>
+                    싫어요 <i class="far fa-heart"><%=@index.badPoint%></i>
+                </p>
+            <%end%>
+            <% if @index.lesson_user_flags.empty? || @index.lesson_user_flags.find_by_user_id(current_user().id).favorite_flag == true%>
+                <%=link_to "찜하기", "/lesson/#{@index.id}/detail/favorite", method: :post%>
+            <% else %>
+                <%=link_to "찜하기 취소", "/lesson/#{@index.id}/detail/favorite", method: :post%>
+            <%end%>
+        </div>
+    </div>
+    <!--아무글도 없을경우-->
+    <% if @index.lesson_evals.empty?%>
+        <div class="deepColumn">
+            <p id="message"> 유저들의 평가가 필요합니다. </p>
+        </div>
+        <div class="deepColumn">
+            <%=form_tag "/lesson/#{@index.id}/create"%>
+                <textarea name="content" placeholder="나의 수강후기를 적어주세요" require=true></textarea>
+                <div class="progressColumn">
+                    <div class="progress">
+                        <p>수업 과제량</p>
+                        <input class="slider" type=range name=point1 min="10.0" max="99.9" />
+                        <label class="rangeValue">50 / 100</label>
+                    </div>
+                    <div class="progress">
+                        <p>수업 난이도</p>
+                        <input class="slider" type=range name=point2 min="10.0" max="99.9" />
+                        <label class="rangeValue">50 / 100</label>
+                    </div>
+                    <div class="progress">
+                        <p>시험 난이도</p>
+                        <input class="slider" type=range name=point3 min="10.0" max="99.9" />
+                        <label class="rangeValue">50 / 100</label>
+                    </div>
+                    <div class="progress">
+                        <p>재수강 의향</p>
+                        <input class="slider" type=range name=point4 min="10.0" max="99.9" />
+                        <label class="rangeValue">50 / 100</label>
+                    </div>
+                </div>
+                <input type="submit" value="평가하기">
+            </form>
+        </div>
+    <!--내가 쓴 글이 없을 경우-->
+    <% elsif @index.lesson_evals.find_by_user_id(current_user().id) == nil%>
+        <div class="deepColumn">
+            <div class="rowColumn" id="commentColumn">
+                <p><%=@index.lesson_evals.order(goodPoint: :desc).first.user.name%>님의 의견</p>
+                <pre><%=@index.lesson_evals.order(goodPoint: :desc).first.comment%></pre>
+                <div class="bottom">
+                    <a href="/">
+                        <span>100</span>
+                        <i class="fas fa-heart"></i>
+                    </a>
+                    <a href="/">
+                        <span>200</span>
+                        <i class="far fa-heart"></i>
+                    </a>
+                    <p><%=truncate(strip_tags("#{@index.lesson_evals.order(goodPoint: :desc).first.created_at}"), length: 14)%></p>
+                    <%=link_to "내 글 삭제하기" , "/lesson/#{@index.lesson_evals.order(goodPoint: :desc).first.id}/delete", method: :delete, id: :myBlogdata, data: {confirm: "해당글을 삭제하시겠습니까?"}%>
+                </div>
+            </div>
+            <div class="rowColumn" id="scoreColumn">
+                <div class="rowProgress">
+                    <p id="totalNumber"> 0 </p> 
+                    <p>&nbsp;/ 100</p>
+                </div>
+                <div class="rowProgress">
+                    <progress class="progressbar" value="<%=@index.lesson_evals.order(goodPoint: :desc).first.score1%>" max="100"></progress>
+                    <p> 수업 과제량 </p>
+                </div>
+                <div class="rowProgress">
+                    <progress class="progressbar" value="<%=@index.lesson_evals.order(goodPoint: :desc).first.score2%>" max="100"></progress>
+                    <p> 수업 난이도 </p>
+                </div>
+                <div class="rowProgress">
+                    <progress class="progressbar" value="<%=@index.lesson_evals.order(goodPoint: :desc).first.score3%>" max="100"></progress>
+                    <p> 시험 난이도 </p>
+                </div>
+                <div class="rowProgress">
+                    <progress class="progressbar" value="<%=@index.lesson_evals.order(goodPoint: :desc).first.score4%>" max="100"></progress>
+                    <p> 재수강 의향 </p>
+                </div>
+            </div>
+        </div>
+        <div class="deepColumn">
+            <%=form_tag "/lesson/#{@index.id}/create"%>
+                <textarea name="content" placeholder="나의 수강후기를 적어주세요" require=true></textarea>
+                <div class="progressColumn">
+                    <div class="progress">
+                        <p>수업 과제량</p>
+                        <input class="slider" type=range name=point1 min="10.0" max="99.9" />
+                        <label class="rangeValue">50 / 100</label>
+                    </div>
+                    <div class="progress">
+                        <p>수업 난이도</p>
+                        <input class="slider" type=range name=point2 min="10.0" max="99.9" />
+                        <label class="rangeValue">50 / 100</label>
+                    </div>
+                    <div class="progress">
+                        <p>시험 난이도</p>
+                        <input class="slider" type=range name=point3 min="10.0" max="99.9" />
+                        <label class="rangeValue">50 / 100</label>
+                    </div>
+                    <div class="progress">
+                        <p>재수강 의향</p>
+                        <input class="slider" type=range name=point4 min="10.0" max="99.9" />
+                        <label class="rangeValue">50 / 100</label>
+                    </div>
+                </div>
+                <input type="submit" value="평가하기">
+            </form>
+        </div>
+    <!--내가 쓴 글이 존재하는경우-->
+    <%else%>
+        <div class="bottomColumn">
+            <div class="rowColumn", id="commentColumn">
+                <p><%=@index.lesson_evals.find_by_user_id(current_user().id).user.name%>님의 의견</p>
+                <pre><%=@index.lesson_evals.find_by_user_id(current_user().id).comment%></pre>
+                <div class="bottom">
+                    <a href="/">
+                        <span>100</span>
+                        <i class="fas fa-heart"></i>
+                    </a>
+                    <a href="/">
+                        <span>200</span>
+                        <i class="far fa-heart"></i>
+                    </a>
+                    <p><%=truncate(strip_tags("#{@index.lesson_evals.find_by_user_id(current_user().id).created_at}"), length: 14)%></p>
+                    <%if @index.lesson_evals.find_by_user_id(current_user().id).user.id == current_user().id%>
+                        <%=link_to "내 글 삭제하기", "/lesson/#{@index.lesson_evals.find_by_user_id(current_user().id).id}/delete", method: :delete, id: :myBlog, data: {confirm: "해당글을 삭제하시겠습니까?"}%>
+                    <%end%>
+                </div>
+            </div>
+            <div class="rowColumn" id="scoreColumn">
+                <div class="rowProgress">
+                    <p>그냥점수</p>
+                </div>
+                <div class="rowProgress">
+                    <progress class="progressbar" value="<%=@index.lesson_evals.find_by_user_id(current_user().id).score1%>" max="100"></progress>
+                    <p> 수업 과제량 </p>
+                </div>
+                <div class="rowProgress">
+                    <progress class="progressbar" value="<%=@index.lesson_evals.find_by_user_id(current_user().id).score2%>" max="100"></progress>
+                    <p> 수업 난이도 </p>
+                </div>
+                <div class="rowProgress">
+                    <progress class="progressbar" value="<%=@index.lesson_evals.find_by_user_id(current_user().id).score3%>" max="100"></progress>
+                    <p> 시험 난이도 </p>
+                </div>
+                <div class="rowProgress">
+                    <progress class="progressbar" value="<%=@index.lesson_evals.find_by_user_id(current_user().id).score4%>" max="100"></progress>
+                    <p> 재수강 의향 </p>
+                </div>
+            </div>
+        </div>
+    <%end%>
+    <!-- 댓글 주루룩-->
+    <% if @index.lesson_evals.empty? == false%>
+        <%@index.lesson_evals.order(goodPoint: :desc).each do |item|%>
+            <%if item.user.id != current_user().id%>
+                <div class="bottomColumn">
+                    <div class="rowColumn", id="commentColumn">
+                        <p><%=item.user.name%>님의 의견</p>
+                        <pre><%=item.comment%></pre>
+                        <div class="bottom">
+                            <a href="/">
+                                <span>100</span>
+                                <i class="fas fa-heart"></i>
+                            </a>
+                            <a href="/">
+                                <span>200</span>
+                                <i class="far fa-heart"></i>
+                            </a>
+                            <p><%=truncate(strip_tags("#{item.created_at}"), length: 14)%></p>
+                            <%if item.user.id == current_user().id%>
+                                <%=link_to "내 글 삭제하기", "/lesson/#{item.id}/delete", method: :delete, id: :myBlog, data: {confirm: "해당글을 삭제하시겠습니까?"}%>
+                            <%end%>
+                        </div>
+                    </div>
+                    <div class="rowColumn" id="scoreColumn">
+                        <div class="rowProgress">
+                            <p>그냥점수</p>
+                        </div>
+                        <div class="rowProgress">
+                            <progress class="progressbar" value="<%=item.score1%>" max="100"></progress>
+                            <p> 수업 과제량 </p>
+                        </div>
+                        <div class="rowProgress">
+                            <progress class="progressbar" value="<%=item.score2%>" max="100"></progress>
+                            <p> 수업 난이도 </p>
+                        </div>
+                        <div class="rowProgress">
+                            <progress class="progressbar" value="<%=item.score3%>" max="100"></progress>
+                            <p> 시험 난이도 </p>
+                        </div>
+                        <div class="rowProgress">
+                            <progress class="progressbar" value="<%=item.score4%>" max="100"></progress>
+                            <p> 재수강 의향 </p>
+                        </div>
+                    </div>
+                </div>
+            <%end%>
+        <%end%>
+    <%end%>
+</div>
+<script>
+    var slider = document.getElementsByClassName("slider");
+    var sliderLabel = document.getElementsByClassName("rangeValue");
+    var plusButton = document.getElementById("plusButton");
+    var lessonDetail = document.getElementById("lessonDetail");
+    var progress = document.getElementsByClassName("progressbar");
+
+    plusButton.addEventListener("mouseover",function(e){
+        lessonDetail.style.display = "flex";    
+    });
+
+    plusButton.addEventListener("mouseleave",function(e){
+        lessonDetail.style.display = "none";
+    });
+
+    if(slider.length !== 0)
+    {
+        slider[0].addEventListener("click",function(){
+            sliderLabel[0].textContent = slider[0].value + " / 100";
+        });
+        slider[1].addEventListener("click",function(){
+            sliderLabel[1].textContent = slider[1].value + " / 100";
+        });
+        slider[2].addEventListener("click",function(){
+            sliderLabel[2].textContent = slider[2].value + " / 100";
+        });
+        slider[3].addEventListener("click",function(){
+            sliderLabel[3].textContent = slider[3].value + " / 100";
+        });
+    }
+
+</script>

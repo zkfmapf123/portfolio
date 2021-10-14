@@ -1,0 +1,120 @@
+2021-10-13 06:15:41 (error) => 
+                    title : get users,
+                    description : TypeError: Cannot read property 'id' of undefined,
+                    user : undefined,
+                    date : October 13th 2021, 6:15:37 am
+                
+2021-10-13 06:15:41 (error) => 
+                    title : get users,
+                    description : TypeError: Cannot read property 'id' of undefined,
+                    user : undefined,
+                    date : October 13th 2021, 6:15:37 am
+                
+2021-10-13 06:16:40 (error) => 
+                    title : get users,
+                    description : TypeError: Cannot read property 'id' of undefined,
+                    user : undefined,
+                    date : October 13th 2021, 6:16:36 am
+                
+2021-10-13 06:16:40 (error) => 
+                    title : get users,
+                    description : TypeError: Cannot read property 'id' of undefined,
+                    user : undefined,
+                    date : October 13th 2021, 6:16:36 am
+                
+2021-10-13 08:50:19 (error) => 
+                    title : get users,
+                    description : Error: connect ECONNREFUSED 127.0.0.1:3307,
+                    user : undefined,
+                    date : October 13th 2021, 8:50:16 am
+                
+2021-10-13 08:50:19 (error) => 
+                    title : get users,
+                    description : Error: connect ECONNREFUSED 127.0.0.1:3307,
+                    user : undefined,
+                    date : October 13th 2021, 8:50:16 am
+                
+2021-10-13 08:50:40 (error) => 
+                    title : get users,
+                    description : Error: connect ECONNREFUSED 127.0.0.1:3307,
+                    user : undefined,
+                    date : October 13th 2021, 8:50:37 am
+                
+2021-10-13 08:50:40 (error) => 
+                    title : get users,
+                    description : Error: connect ECONNREFUSED 127.0.0.1:3307,
+                    user : undefined,
+                    date : October 13th 2021, 8:50:37 am
+                
+2021-10-13 08:51:43 (error) => 
+                    title : get users,
+                    description : Error: connect ECONNREFUSED 127.0.0.1:3307,
+                    user : undefined,
+                    date : October 13th 2021, 8:51:40 am
+                
+2021-10-13 08:51:43 (error) => 
+                    title : get users,
+                    description : Error: connect ECONNREFUSED 127.0.0.1:3307,
+                    user : undefined,
+                    date : October 13th 2021, 8:51:40 am
+                
+2021-10-13 08:52:19 (error) => 
+                    title : get users,
+                    description : Error: connect ECONNREFUSED 127.0.0.1:3307,
+                    user : undefined,
+                    date : October 13th 2021, 8:52:15 am
+                
+2021-10-13 08:52:19 (error) => 
+                    title : get users,
+                    description : Error: connect ECONNREFUSED 127.0.0.1:3307,
+                    user : undefined,
+                    date : October 13th 2021, 8:52:15 am
+                
+2021-10-13 08:53:45 (error) => 
+                    title : get users,
+                    description : TypeError: Cannot read property '0' of undefined,
+                    user : undefined,
+                    date : October 13th 2021, 8:52:37 am
+                
+2021-10-13 08:55:02 (error) => 
+                    title : get users,
+                    description : TypeError: Cannot read property '0' of undefined,
+                    user : undefined,
+                    date : October 13th 2021, 8:54:58 am
+                
+2021-10-13 08:56:01 (error) => 
+                    title : get users,
+                    description : TypeError: Cannot read property '0' of undefined,
+                    user : undefined,
+                    date : October 13th 2021, 8:55:57 am
+                
+2021-10-13 08:56:34 (error) => 
+                    title : get users,
+                    description : TypeError: Cannot read property '0' of undefined,
+                    user : undefined,
+                    date : October 13th 2021, 8:56:31 am
+                
+2021-10-13 09:04:52 (error) => 
+                    title : is correct password,
+                    description : Error: data and hash arguments required,
+                    user : undefined,
+                    date : October 13th 2021, 9:04:45 am
+                
+2021-10-13 13:29:55 (error) => 
+                    title : get users,
+                    description : Error: connect ECONNREFUSED 127.0.0.1:3307,
+                    user : undefined,
+                    date : October 13th 2021, 1:27:44 pm
+                
+2021-10-13 13:30:00 (error) => 
+                    title : get users,
+                    description : Error: connect ECONNREFUSED 127.0.0.1:3307,
+                    user : undefined,
+                    date : October 13th 2021, 1:27:44 pm
+                
+2021-10-13 13:51:08 (error) => 
+                    title : change my password,
+                    description : 2,
+                    user : undefined,
+                    date : October 13th 2021, 1:51:04 pm
+                

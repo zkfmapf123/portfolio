@@ -1,0 +1,19 @@
+.post_container{
+
+    .post_column{
+        padding-top : 20px;
+        padding-bottom : 20px;
+
+        h3{
+            font-size : 15px;
+            font-weight: 600;
+            padding-bottom: 20px;
+            margin : 10px 100px 10px 100px;
+        }
+
+        .posts{
+            display: grid;
+            grid-template-columns: repeat(5,1fr);
+        }
+    }
+}

@@ -1,0 +1,82 @@
+.user_container{
+    
+    text-align: center;
+    .user_column{
+        margin : 10px 180px 10px 180px;
+    }
+/*
+    .user_column:nth-child(1){ //유저
+        div{
+            padding : 20px;
+            
+            label{
+                font-size : 24px;
+                margin-right: 20px;
+            }
+
+            span{
+                font-size : 24px;
+            }
+
+            form{
+                display: inline;
+                padding-right: 10px;
+                
+                button{
+                    font-size : 24px;
+                }
+
+                input{
+                    font-size : 24px;
+                }
+            }
+        }
+    }
+*/
+    .user_column:nth-child(2){ //찜하기
+        
+        min-width: 674px;
+        h3{
+            font-size : 15px;
+            text-align: left;
+        }
+        
+        table{
+            width: 100%;
+            margin-top : 10px;
+            margin-bottom: 10px;
+            border-top : 3px solid rgba(0,0,0,0.2);
+
+            tr{
+                border-bottom: 1px solid rgba(0,0,0,0.2);
+
+                th{
+                    padding-top : 20px;
+                    padding-bottom : 20px;
+                }
+
+                td{
+                    padding-top : 20px;
+                    padding-bottom : 20px;
+                    padding-right: 10px;
+                    width: 300px;
+                }
+
+                .itemTitle{
+                    a{
+                        text-decoration: none;
+                        color : green;
+                        font-weight: 400;
+                        cursor: pointer;
+                    }
+                }
+
+                .itemTime{
+                    color : #eb2f06;
+                    font-size : 25px;
+                    font-weight: 400;
+                }
+            }
+        }        
+    }
+}

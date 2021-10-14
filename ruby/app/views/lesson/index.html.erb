@@ -1,0 +1,101 @@
+<div class="formContainer" id="lessonScreen">
+    <div class="formColumn"></div>
+    <div class="formColumn">
+        <form action="/lesson">
+            <select name="searchFind">
+                <option name="title" value="lesson_title">수업제목</option>
+                <option name="campus" value="lesson_campus">캠퍼스</option>
+                <option name="target" value="lesson_target">대상학년</option>
+                <option name="major" value="lesson_major">이수구분</option>
+            </select>
+            <input style="width: 300px" type="text" name="search" placeholder="검색어를 입력하세요" required=true/>
+            <input type="submit" value="Enter">
+        </form>
+    </div>
+    <div class="formColumn">
+        <p> 조회수 순으로 정렬 됩니다 </p>
+        <p> 해당 강의평가는 평점이 높은 평가가 나옵니다 </p>
+        <%if @index.empty?%>
+            <p id="emptyError"><%=flash[:no_find]%></p>
+        <%end%>
+    </div>
+    <div class="formColumn">
+        <%@index.each do |item|%>
+            <div class="form">
+                <a href="lesson/<%=item.id%>/detail"> 
+                    <%if item.lesson_evals.empty?%>
+                        <div class="rowColumn">
+                            <div class="rowColumnColumn">
+                                <div class="viewColumnColumn">
+                                    <p><%=truncate(strip_tags(item.title), length:20)%></p>
+                                    <p><%=item.professor.name%> 교수</p>
+                                </div>
+                                <div class="commentColumn">
+                                    <p>조회 수 <%=item.view%></p>
+                                    <p>평가가 필요해요!</p>
+                                </div>
+                            </div>
+                            <div class="rowColumnColumn">
+                                <%if item.score == 0%>
+                                    <p id="score">평가해 주세요</p>
+                                <%else%>
+                                    <p id="score">평가가 필요해요!</p>
+                                <%end%>
+                                <progress value="0" max="100"></progress>
+                                <progress value="0" max="100"></progress>
+                                <progress value="0" max="100"></progress>
+                                <progress value="0" max="100"></progress>
+                            </div>
+                        </div>
+                        <div class="pointColumn">
+                            <p>평가가 필요해요!</p>
+                            <p>평가가 필요해요!</p>
+                        </div>
+                    <%else%>
+                        <div class="rowColumn">
+                            <div class="rowColumnColumn">
+                                <div class="viewColumnColumn">
+                                    <p><%=truncate(strip_tags(item.title), length:20)%></p>
+                                    <p><%=item.professor.name%> 교수</p>
+                                </div>
+                                <div class="commentColumn">
+                                    <p>조회 수 <%=item.view%></p>
+                                    <pre><%=item.lesson_evals.order(goodPoint: :desc).first.comment%></pre>
+                                </div>
+                            </div>
+                            <div class="rowColumnColumn">
+                                <%if item.score == 0%>
+                                    <p id="score">평가해 주세요</p>
+                                <%else%>
+                                    <p style="display: none" id="score">총평</p>
+                                <%end%>
+                                <div class="rowProgress">
+                                    <progress class="progressbar" value="<%=item.lesson_evals.order(goodPoint: :desc).first.score1%>" max="100"></progress>
+                                    <p> 수업 과제량 </p>
+                                </div>
+                                <div class="rowProgress">
+                                    <progress class="progressbar" value="<%=item.lesson_evals.order(goodPoint: :desc).first.score2%>" max="100"></progress>
+                                    <p> 수업 난이도 </p>
+                                </div>
+                                <div class="rowProgress">
+                                    <progress class="progressbar" value="<%=item.lesson_evals.order(goodPoint: :desc).first.score3%>" max="100"></progress>
+                                    <p> 시험 난이도 </p>
+                                </div>
+                                <div class="rowProgress">
+                                    <progress class="progressbar" value="<%=item.lesson_evals.order(goodPoint: :desc).first.score4%>" max="100"></progress>
+                                    <p> 재수강 의향 </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pointColumn">
+                            <i class="fas fa-heart"></i>
+                            <p><%=item.lesson_evals.order(goodPoint: :desc).first.goodPoint%></p>
+                            <i class="far fa-heart"></i>
+                            <p><%=item.lesson_evals.order(goodPoint: :desc).first.badPoint%></p>
+                        </div>
+                    <%end%>
+                </a>
+            </div>
+        <%end%>
+    </div>
+</div>

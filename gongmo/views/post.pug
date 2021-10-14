@@ -1,0 +1,17 @@
+extends layouts/main
+include layouts/mixin/postSimpleShowView
+
+block content
+    .post_container
+        .post_column
+            .posts
+                each item in posts
+                    +postSimpleShowView({
+                        id: item.id,
+                        imageUrl: item.imageUrl,
+                        title: item.title,
+                        separate: item.separate,
+                        target : item.target,
+                        view : item.view,
+                        period : item.period
+                    })

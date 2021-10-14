@@ -1,0 +1,67 @@
+<div class="homeworkLessonContainer">
+    <div class="homeworkLessonColumn">
+        <%if @index.exists? == false%>
+            <a id="noneIndexLink" href="/homework/lesson/<%=params[:id]%>/create">
+                <p> 찾는 게시글이 없습니다. <p>
+                <p> 직접 과제를 공유해 보세요 </p>
+            </a>
+        <%else%>
+            <p id="lessonTitle">
+                <%=@index[0].lesson.title%>
+            </p>
+            <table>
+                <tr>
+                    <th style="width:300px">제목</th>
+                    <th>글쓴이</th>
+                    <th>조회수</th>
+                    <th>작성일</th>
+                </tr>
+                <%@index.each do |item|%>
+                    <tr>
+                        <td>
+                            <a id="titleComment" href="/homework/<%=item.id%>/detail">
+                                <p><%=item.title%></p>
+                                <p>(<%=item.comments.count%>)</p>
+                            </a>
+                        </td>
+                        <td><%=item.user.name%></td>
+                        <td><%=item.view%></td>
+                        <td><%=truncate(strip_tags("#{item.created_at}"), length: 14)%></td>
+                    </tr>
+                <%end%>
+            </table>
+            </div>
+            <div class="homeworkLessonColumn">
+                <a id="createButton" href="/homework/lesson/<%=params[:id]%>/create">글쓰기</a>
+            </div>
+            <!--페이징-->
+            <% if @flag == 0%>
+                <% if @pageNumber < 14%>
+                    <div class="homeworkLessonColumnLess">
+                        <% 1.upto @pageNumber do |item|%>
+                            <a href="/homework/lesson/<%=params[:id]%>/?page=<%=item%>#lessonTitle"><%=item%></a>
+                        <%end%>
+                    </div>
+                <% else%>
+                    <div class="homeworkLessonColumn">
+                        <% 1.upto @pageNumber do |item|%>
+                            <a href="/"><%=item%></a>
+                        <%end%>
+                    </div>
+                <% end %>
+            <%else%>
+                <div style="display:none margin: 15px 0px;" class="homeworkLessonColumn"></div>
+            <%end%>
+            <!--검색, 글쓰기-->
+            <div class="homeworkLessonColumn">
+                <%=form_tag "/homework/lesson/#{params[:id]}", method: :get%>
+                    <select name="homeworkSearch">
+                        <!--<option name="name" value="name">이름</option> -->
+                        <option name="title" value="title">제목</option>
+                    </select>
+                    <input style="width: 300px" type="text" name="search" placeholder="검색어를 입력하세요" required=true>
+                    <input type="submit" value="검색">
+                </form>        
+            </div>
+        <%end%>
+</div>

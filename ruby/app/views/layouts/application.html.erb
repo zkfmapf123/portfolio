@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>경동대 강의평가</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <script src="https://kit.fontawesome.com/35fb68f7ee.js" crossorigin="anonymous"></script>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+    <header>
+      <div class="headerContainer">
+        <div class="headerColumn">
+          <a id="guideLineButton">
+            <i class="fas fa-book-reader"></i>
+            <p> 읽어주세요 </p>
+          </a>
+          <% if current_user()%>
+            <a href="/homework/user">내 과제</a>
+            <a style="cursor: pointer" id="userDetail">유저 정보</a>
+            <%=link_to "로그 아웃", "/logout", method: :delete %>
+            <a style="display: none" href="/" id="loginButton"> 로그인 </a>
+            <a style="display: none" href="/" id="joinButton"> 회원가입 </a>
+          <% else%>
+            <a style="display: none" href="/" id="userDetail">유저 정보</a>
+            <a style="display: none" href="/">로그 아웃</a>
+            <a href="/" id="loginButton"> 로그인 </a>
+            <a href="/" id="joinButton"> 회원가입 </a>
+          <% end%>
+        </div>
+        <div class="headerColumn">
+          <a href="/">
+            <h3>경동대학교</h3>
+            <h3>강의평가사이트</h3>
+          </a>
+        </div>
+        <div class="headerColumn">
+          <form action="/lesson">
+            <select name="searchFind">
+              <option name="title" value="lesson_title">강의 제목</option>
+              <!--<option name="name" value="professor_name">교수 이름</option>-->
+            </select>
+            <input style="width: 300px" type="text" name="search" placeholder="검색어를 입력하세요" required=true>
+            <input type="submit" value="Enter">
+          </form>
+        </div>
+        <div class="headerColumn">
+          <div class="column">
+            <a href="/lesson" id="btn1">
+              <i class="fas fa-book"></i>
+              <p> 강의평가 <p>
+            </a>
+          </div>
+          <div class="column">
+            <a href="/professor" id="btn1">
+              <i class="far fa-address-book"></i>
+              <p> 교수평가 <p>
+            </a>
+          </div>
+          <div class="column">
+            <a href="/calculator" id="btn1">
+              <i class="fas fa-sort-alpha-down"></i>
+              <p> 학점계산기 <p>
+            </a>
+          </div>
+          <div class="column">
+            <a href="/chat" id="btn1">
+              <i class="fas fa-chalkboard-teacher"></i>
+              <p> 오픈채팅방 <p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!--가이드라인 이미지-->
+      <div class="guideLine" id="guideLine">
+        <div class="guideColumn">
+          <div class="rowColumn">
+            <a id="guideLeft" href="/">
+              <i class="fas fa-angle-left"></i>
+            </a>
+            <%=image_tag "logo.PNG", id: :guideLineImage%>
+            <a id="guideRight" href="/">
+              <i class="fas fa-angle-right"></i>
+            </a>
+          </div>
+          <a id="guideEnd">가이드 끄기</a>
+          <p id="nextButton">1,2,3,4,5,</p>
+        </div>
+      </div>
+    </header>
+    <main>
+      <%= yield %>
+    </main>
+    <div class="popUpButton"> <!--맨 밑에-->
+      <i class="fas fa-chevron-up" id="popUpButton"></i>
+    </div>
+    <footer id="footer">
+      <div class="footerContainer">
+        <div class="footerColumn" id="footerPopup">
+          <% if current_user() == nil%>
+            <p class="current_user">로그인을 해주세요</p>
+          <% else%>
+            <div class="column">
+              <div class="columnColumn">
+                <i id="userIcon" class="fas fa-user-circle"></i>
+                <div class="columnColumnColumn">
+                  <p class="currrent_user"><%=current_user().name%> 님 안녕하세요</p> 
+                  <p><%=current_user().major%></p>
+                  <%=link_to "로그 아웃", "/logout", method: :delete %>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="columnColumn">
+                <i style="margin-right: 5px" class="fas fa-heart"></i>
+                <h1> 찜한 목록 </h1>
+                <% if !(current_user().lesson_user_flags.empty?)%>
+                  <p><%=current_user().lesson_user_flags.count%></p>
+                <%end%>
+              </div>
+              <div class="columnColumn">
+                <%current_user().lesson_user_flags.each do |item|%>
+                  <div class="favoriteColumn">
+                    <% if item.favorite_flag == false%>
+                      <a href="/">
+                        <p><%=item.lesson.title%></p>
+                        <p><%=item.lesson.professor.name%>
+                      </a>
+                    <%end%>
+                  </div>
+                <%end%>
+              </div>
+            </div>
+          <% end%>
+        </div>
+        <div class="footerColumn">
+          <p> 경동대학교 </p>
+          <p> 강의평가 사이트 </p>
+          <p> 개인정보 처리 방침 </p>
+          <p> 이용약관 </p>
+          <p> 고객문의 </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script>
+    var popUp = document.getElementById("popUpButton");
+    var popUpColumn = document.getElementById("footerPopup");
+    var footer = document.getElementById("footer");
+    var userDetail = document.getElementById("userDetail");
+    var guideLine = document.getElementById("guideLine");
+    var guideLeftButton = document.getElementById("guideLeft");
+    var guideRightButton = document.getElementById("guideRight");
+    var guideEnd = document.getElementById("guideEnd");
+
+        // 가이드라인 
+        var a = document.getElementById("guideLineButton");
+
+        a.addEventListener("click",function(e){
+            guideLine.style.display = "block";
+        });
+
+        //끄기버튼
+        guideEnd.addEventListener("click",function(e){
+          guideLine.style.display = "none"
+        });
+
+        //왼쪽버튼
+        guideLeftButton.addEventListener("click",function(e){
+          e.preventDefault();
+
+          alert("left");
+        });
+
+        //오른쪽버튼
+        guideRightButton.addEventListener("click",function(e){
+          e.preventDefault();
+
+          alert("right");
+        });
+
+        //
+
+    footer.style.height="100px";
+
+    popUp.addEventListener("click",function(e){
+      if(popUpColumn.style.display === "flex"){
+        popUp.className="fas fa-chevron-up";
+        footer.style.height="100px";
+        popUpColumn.style.display = "none";
+      }else{
+        popUp.className="fas fa-chevron-down";
+        footer.style.height="500px";
+        popUpColumn.style.display="flex";
+      };
+    });
+
+    userDetail.addEventListener("click",function(e){
+      popUp.className="fas fa-chevron-down";
+      footer.style.height ="500px";
+      popUpColumn.style.display="flex";
+      document.location.href="#footerPopup";
+    });
+
+  </script>
+</html>

@@ -1,0 +1,257 @@
+<div class="homeContainer"> 
+    <div class="homeColumn">
+        <div class="guideColumn">
+            <h1> | 학사일정 & 공지사항 </h1>
+        </div>
+        <div class="seeboard">
+            <table>
+                <tr>   
+                    <th>No</th>
+                    <th>제목</th>
+                    <th>작성일</th>
+                    <th></th>
+                </tr>
+                <%@url.each do |item|%>
+                <tr>
+                    <td><%=item.split(",")[0]%></td>
+                    <td>
+                        <a href="<%=item.split(",")[1]%>">
+                            <p><%=item.split(",")[2]%></p>
+                        </a>
+                    </td>
+                    <td>2020.09.07</td>
+                    <td>관리자</td>
+                </tr>
+                <%end%>
+            </table>
+        </div>
+    </div>
+    <div class="homeColumn">
+        <div class="column">
+            <h1> | 최신 강의 평가 </h1>
+            <div class="content">
+                <%@recent_lesson.each do |item|%>
+                    <a href="/lesson/<%=item.lesson_id%>/detail">
+                        <div class="contentColumn">
+                            <div class="recentColumn">
+                                <p><%=item.lesson.title%></p>
+                                <p><%=item.lesson.professor.name%></p>
+                            </div>
+                            <div class="recentColumn">
+                                <p><%=item.comment%></p>
+                            </div>
+                            <div class="recentColumn">
+                                <p><%=item.user.name%></p>
+                            </div>
+                            <div class="alertColumn">
+                                <p> + 자세히보기 </p>
+                            </div>
+                        </div>
+                    </a>
+                <%end%>
+            </div>
+        </div>
+        <div class="column">
+            <h1> | 최고의 수업 <h1>
+            <div class="bestProfessor">
+                <%@lesson.each do |item|%>
+                    <div class="bestColumn">
+                        <a href="/">
+                            업데이트 예정
+                        </a>
+                    </div>
+                <%end%>
+            </div>
+        </div>
+        <div class="column">
+            <h1 id="professor"> | 최고의 교수 </h1>
+            <div class="bestProfessor">
+                <%@professor.each do |item|%>
+                    <div class="bestColumn">
+                        <a href="/">
+                            업데이트 예정
+                        </a>
+                    </div>
+                <%end%>
+            </div>
+        </div>
+    </div>
+    <!--로그인-->
+    <div class="modal", id="modal">
+        <div class="modalContent", id="modalLogin">
+            <h1> 경동대학교 </h1>
+            <h1> 강의평가 사이트 </h1>
+            <%=form_tag "/login", method: :post%>
+                <input type="email" name="email" placeholder="이메일을 입력하세요" required=true/>
+                <input type="password" name="password" placeholder="비밀번호를 입력하세요" required=true/>
+                <strong class="error"><%=flash[:login]%></strong>
+                <input type="submit" value="Log in"/>
+            </form>
+            <a id="btnForget"> 아이디 혹은 비밀번호를 잊으셨나요?</a> 
+            <a id="btnJoin"> 아직 회원이 아니신가요?</a>
+        </div>
+    </div>
+    <!--회원가입-->
+    <div class="modal", id="modal">
+        <div class="modalContent", id="modalJoin">
+            <%=form_tag "/join", method: :post%>
+                <input type="text" name="name" placeholder="이름" required=true>
+                <input type="email" name="email" placeholder="이메일" required=true>
+                <select name="major">
+                    <optgroup label="고성캠퍼스">
+                        <option name="major" value="관광경영학과">관광경영학과</option>
+                        <option name="major" value="호텔경영학과">호텔경영학과</option>
+                        <option name="major" value="항공경영학과">항공경영학과</option>
+                        <option name="major" value="(대명)레저&리조트학과">(대명)레저&리조트학과</option>
+                        <option name="major" value="해양심층수학과">해양심층수학과</option>
+                        <option name="major" value="국제경영학과">국제경영학과</option>
+                        <option name="major" value="국제호텔경영학과">국제호텔경영학과</option>
+                    </optgroup>
+                    <optgroup label="양주캠퍼스">
+                        <option name="major" value="체육학과">체육학과</option>
+                        <option name="major" value="건축공학과">건축공학과</option>
+                        <option name="major" value="경찰학과">경찰학과</option>
+                        <option name="major" value="행정학과">행정학과</option>
+                        <option name="major" value="컴퓨터공학과">컴퓨터공학과</option>
+                        <option name="major" value="유아교육과">유아교육과</option>
+                        <option name="major" value="경영학과">경영학과</option>
+                        <option name="major" value="외식사업학과">외식사업학과</option>
+                        <option name="major" value="외삭산업경영학과">외식산업경영학과</option>
+                        <option name="major" value="호텔조리학과">호텔조리학과</option>
+                        <option name="major" value="소프트웨어학과">소프트웨어학과</option>
+                        <option name="major" value="건축디자인학과">건축디자인학과</option>
+                        <option name="major" value="토목공학과">토목공학과</option>
+                        <option name="major" value="중등특수교육과">중등특수교육과</option>
+                        <option name="major" value="한국어교원학과">한국어교원학과</option>
+                        <option name="major" value="스포츠마케팅학과">스포츠마케팅학과</option>
+                        <option name="major" value="정보보안학과">정보보안학과</option>
+                        <option name="major" value="디자인학과">디자인학과</option>
+                    </optgroup>
+                    <optgroup label="원주캠퍼스">
+                        <option name="major" value="물리치료학과">물리치료학과</option>
+                        <option name="major" value="보건관리학과">보건관리학과</option>
+                        <option name="major" value="사회복지학과">사회복지학과</option>
+                        <option name="major" value="안경광학과">안경광학과</option>
+                        <option name="major" value="웰니스경영학과">웰니스경영학과</option>
+                        <option name="major" value="작업치료학과">작업치료학과</option>
+                        <option name="major" value="응급구조학과">응급구조학과</option>
+                        <option name="major" value="임상병리학과">임상병리학과</option>
+                        <option name="major" value="작업치료학과">작업치료학과</option>
+                        <option name="major" value="치기공학과">치기공학과</option>
+                        <option name="major" value="치위생학과">치위생학과</option>
+                        <option name="major" value="간호학과">간호학과</option>
+                    </optgroup>
+                <input type="password" name="password" placeholder="비밀번호" required=true>
+                <input type="password" name="passwordCheck" placeholder="비밀번호 확인" required=true>
+                <input type="submit" value="회원가입">
+                <strong class="error"><%=flash[:join]%></strong>
+            </form>
+        </div>
+    </div>
+    <!--아이디/비밀번호찾기-->
+    <div class="modal", id="modal">
+        <div class="modalContent", id="modalForget">
+            <%=form_tag "/forget/?id=1"%>
+                <input type="text" name="name" placeholder="이름을 입력하세요" required=true>
+                <input type="text" name="major" placeholder="전공을 입력하세요" required=true>
+                <input type="submit" value="이메일 찾기">
+            </form>
+            <strong class="error"><%=flash[:forget]%></strong>
+            <div class="modalColumn", id="modalPassword">
+                <%=form_tag "/createPassword"%>
+                    <input type="password" name="password" placeholder="비밀번호를 입력하세요" required=true>
+                    <input type="password" name="passwordCheck" placeholder="비밀번호 확인" required=true>
+                    <input type="submit" value="비밀번호 등록">
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        var loginButton = document.getElementById("loginButton");
+        var joinButton = document.getElementById("joinButton");
+
+        var modal = document.getElementsByClassName("modal");
+        var btnJoin = document.getElementById("btnJoin");
+        var btnForget = document.getElementById("btnForget");
+        var errorMessage = document.getElementsByClassName("error");
+        var modalPassword = document.getElementById("modalPassword");
+
+        // login, join button
+
+        loginButton.addEventListener("click",function(e){
+            e.preventDefault();
+            modal[0].style.display = "block";
+            errorTextDefault(0);
+        });
+
+        joinButton.addEventListener("click",function(e){
+            e.preventDefault();
+            modal[0].style.display ="none";
+            modal[1].style.display = "block";
+            errorTextDefault(1);
+        });
+
+
+        //회원가입버튼
+        btnJoin.addEventListener("click",function(e){
+            e.preventDefault();
+            modal[0].style.display= "none";
+            modal[1].style.display= "block";
+            errorTextDefault(1);
+        });
+
+        //아이디 / 비밀번호찾기 버튼
+        btnForget.addEventListener("click",function(e){
+            e.preventDefault();
+            modal[0].style.display = "none";
+            modal[2].style.display = "block";
+            modalPassword.style.display ="none";
+            errorTextDefault(2);
+        });
+
+        //바탕화면 누르면 초기화
+        window.onclick = function(e){
+            for(let i=0; i<modal.length; i++){
+                if(e.target === modal[i]){
+                    modal[i].style.display="none"; 
+                }
+            }
+        };
+
+        //버튼 눌렀을때 flash 초기화
+        var errorTextDefault = function(index){
+            var errorText = document.getElementsByClassName("error");
+            if(errorText[index].textContent !== "") errorText[index].style.display="none";
+        };
+
+        //로그인 및 회원가입 오류시 나타내는 메시지
+        var errorTextShowup = function(){
+            if(errorMessage[0].textContent !== ""){
+                modal[0].style.display="block";
+                modal[1].style.display="none";
+                modal[2].style.display="none";
+            }
+    
+            if(errorMessage[1].textContent !== ""){
+                modal[0].style.display="none";
+                modal[1].style.display="block";
+                modal[2].style.display="none";
+            }
+    
+            if(errorMessage[2].textContent !== ""){
+                modal[0].style.display ="none";
+                modal[1].style.display ="none";
+                modal[2].style.display ="block";
+            }
+
+            if(errorMessage[2].textContent !== "해당하는 이메일이 없습니다" && errorMessage[2].textContent !== ""){
+                modal[0].style.display ="none";
+                modal[1].style.display = "none";
+                modal[2].style.display = "block";
+                modalPassword.style.display="block";
+            }
+        }
+
+        errorTextShowup();
+    </script>
+</div>

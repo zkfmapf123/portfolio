@@ -1,0 +1,227 @@
+.formContainer{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    color : #4A3656;
+}
+
+/*button*/
+.formColumn:nth-child(1){
+    position: absolute;
+    top: 550px;
+    right: 30px;
+    
+    font-size: 20px;
+}
+
+/* form */
+.formColumn:nth-child(2){
+    display: flex;
+    justify-content: center;
+}
+
+.formColumn:nth-child(2) form{
+    border : 1px solid #4A3656;
+    width : 500px;
+    border-radius: 20px;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    margin-top : 20px;
+    margin-bottom: 20px;
+}
+
+.formColumn:nth-child(2) form select{
+    flex : 1;
+    border: 0px;
+    background-color: white;
+    color : #4A3656;
+    font-size: 20px;
+}
+
+.formColumn:nth-child(2) form input[type="text"]{
+    flex : 4;
+    border: 0px;
+    font-size: 20px;
+    background-color: white;
+}
+
+.formColumn:nth-child(2) form input[type="submit"]{
+    flex: 1;
+    width: 100px;
+    border : 0px;
+    background-color: white;
+    font-size: 20px;
+    font-family: 'headCircle';
+    font-weight: bold;
+    color : #4A3656;
+    padding-left: 20px;
+    border-left: 1px solid #4A3656;
+}
+
+.formColumn:nth-child(2) form input[type="submit"]:hover{
+    opacity: 0.5;
+}
+
+/* 조회수, 공감 순 버튼*/
+.formColumn:nth-child(3){
+    font-size: 20px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+
+    font-family: "comment";
+}
+
+.formColumn:nth-child(3) p:nth-child(1){
+    margin-bottom: 10px;
+}
+
+.formColumn:nth-child(4){
+    margin-top: 30px;
+    display: flex;
+    flex : 1;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.formColumn .form{
+    display: flex;
+    flex : 1;
+
+    width: 700px;
+    height: 300px;
+    border : 0.5px solid #4A3656;
+    padding : 30px;
+    background-color: #F5F5F5;
+    margin :20px 5px;
+    border-radius: 25px;
+
+    -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+        -webkit-transition: .3s;
+        -moz-transition: .3s;
+        -ms-transition: .3s;
+        -o-transition: .3s;
+        transition: .3s;
+}
+
+.formColumn:nth-child(4) .form:hover{
+    -webkit-transform:scale(1.2);
+    -moz-transform:scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform:scale(1.2);
+}
+        
+/* 안쪽 flex 레이아웃*/
+
+.form a{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.rowColumn{
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.rowColumnColumn:nth-child(1){
+    display: flex;
+    flex : 2;
+    flex-direction: column;
+}
+
+.rowColumnColumn:nth-child(2){
+    display: flex;
+    flex : 1;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.rowColumnColumn .viewColumnColumn{
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.rowColumnColumn .commentColumn{
+    width: 467px;
+    height: 208px;
+
+    display: flex;
+    flex : 3;
+    flex-direction: column;
+}
+
+.rowColumnColumn .commentColumn pre{
+    width: 467px;
+    height: 208px;
+
+    line-height: 1.2;
+
+    overflow: auto;
+}
+
+.pointColumn{
+    border-top : 0.5px solid #4A3656;
+    display: flex;
+    flex-direction: row;
+}
+
+.pointColumn i{
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.pointColumn p{
+    margin-top: 5px;
+    padding-right: 20px;
+}
+
+/* 안에다가 넣어보자 왜 안될까?....*/
+
+.rowProgress{
+    display: flex;
+    flex-direction: row;
+}
+
+.rowProgress p{
+    margin-top: 10px;
+    margin-left: 5px;
+    font-family: "comment";
+}
+
+progress[value]{
+    position: relative;
+    width: 100px;
+    height: 40px;
+}
+
+.formProgress{
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.formProgress p{
+    position: relative;
+    font-family: "comment";
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+#emptyError{
+    color : #4A3656;
+    font-size: 30px;
+    margin-top: 50px;
+}

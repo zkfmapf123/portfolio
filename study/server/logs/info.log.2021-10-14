@@ -1,0 +1,30 @@
+2021-10-14 19:36:44 (info) => 
+                title : create todo,
+                description : Error: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(user_id, todo) values('28','math')' at line 1,
+                user : 28,
+                date : October 14th 2021, 7:36:44 pm
+                
+2021-10-14 19:37:56 (info) => 
+                title : create todo,
+                description : Error: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(user_id, todo) values('28','todo test')' at line 1,
+                user : 28,
+                date : October 14th 2021, 7:37:55 pm
+                
+2021-10-14 19:38:02 (info) => 
+                title : create todo,
+                description : Error: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(user_id, todo) values('28','todo test')' at line 1,
+                user : 28,
+                date : October 14th 2021, 7:38:02 pm
+                
+2021-10-14 19:38:32 (info) => 
+                title : create todo,
+                description : Error: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(user_id, todo) values('28','todo test')' at line 1,
+                user : 28,
+                date : October 14th 2021, 7:38:31 pm
+                
+2021-10-14 19:38:58 (info) => 
+                title : create todo,
+                description : Error: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(user_id, todo) values('28','test')' at line 1,
+                user : 28,
+                date : October 14th 2021, 7:38:29 pm
+                

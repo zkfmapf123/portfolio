@@ -1,0 +1,211 @@
+extends layouts/main
+
+block content
+    .analContainer
+        .analColumn
+            h3 상세검색
+            h4 － 선택하지 않은 조건은 "무관" 으로 검색됩니다.
+            h4 － 검색엔진으로 인해 일부 정보는 작성 후 검색 반영까지 10 ~ 30초 정도 소요될 수 있습니다.
+        .analColumn
+            form#findResult
+                span 제목 검색
+                input.titleSearch#titleSearch(type="text" name="findContent" placeholder="제목을 검색하세요")
+                div
+                    span 세부 검색
+                    input.titleSearch(type="text" name="separate" placeholder="검색할 세부내용을 적어주세요 ex) 서포터즈 ex) 광고 ex)마케팅")
+                div
+                    span 대 분류&nbsp&nbsp&nbsp     
+                    label 공모전
+                    input(type="radio" name="divide" value="1")
+                    label 대외활동
+                    input(type="radio" name="divide" value="2") 
+                    label 봉사활동
+                    input(type="radio" name="divide" value="3") 
+                    label 기타
+                    input(type="radio" name="divide" value="4")
+                    label 무관
+                    input(type="radio" name="divide" value="무관" checked=true)
+                div
+                    span 검색 대상
+                    label 일반인
+                    input(type="radio" name="target" value="일반인")
+                    label 대학생
+                    input(type="radio" name="target" value="대학생")
+                    label 기타
+                    input(type="radio" name="target" value="기타")
+                    label 무관
+                    input(type="radio" name="target" value="무관" checked=true)
+                div
+                    span 총 상금&nbsp&nbsp&nbsp&nbsp
+                    label 0 ~ 100만원
+                    input(type="radio" name="amount" value="100")
+                    label 100 ~ 500만원
+                    input(type="radio" name="amount" value="500")
+                    label 500만원 이상
+                    input(type="radio" name="amount" value="1000")
+                    label 다양한 혜택
+                    input(type="radio" name="amount" value="다양한혜택")
+                    label 무관
+                    input(type="radio" name="amount" value="무관" checked= true)
+                .find
+                    input(type="submit" value="상세 검색")
+        .analColumn
+            a#viewSort 조회 수
+            a#goodSort 좋아요 순
+            a#daySort 남은 기간 순
+        .analColumn
+            table#result
+                tr
+                    th 
+                    th 제목
+                    th 기간
+                    th 남은 기간
+                for item in posters
+                    tr
+                        td
+                            a(href=`/view/post/${item.id}`)
+                                img(src=`${item.imageUrl}` width =100 height= 100)
+                        td= item.title
+                        td= item.period
+                        td= item.day
+    script.
+
+        const findResult = document.getElementById("findResult");
+        const result = document.getElementById("result");
+        const viewSort = document.getElementById("viewSort");
+        const goodSort = document.getElementById("goodSort");
+        const daySort = document.getElementById("daySort");
+        const findResults = findResult.children;
+        const separateChild = findResults[2].children;
+        const radioChild = findResults[3].children;
+        const targetChild = findResults[4].children;
+        const amountChild = findResults[5].children;
+
+        let findPosters = [];
+        let i =0;
+
+        findResult.addEventListener("submit",(e)=>{
+            e.preventDefault();
+
+            let findTitle = findResults[1].value;
+            let findSeparate = separateChild[1].value;
+            let findDivide = findIteration(radioChild,10);
+            let findTarget = findIteration(targetChild,8);
+            let findAmount = findIteration(amountChild,10);
+
+            if(findTitle === "") findTitle = "무관";
+            if(findSeparate === "" || findSeparate === "세부검색") findSeparate = "무관"
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.onload = () =>{
+                if(xhr.status === 200){
+                    findPosters = JSON.parse(xhr.responseText);
+            
+                    printAll(findPosters,i);
+                }else{
+                    console.error(error);
+                }
+            }
+
+            xhr.open("post","/anal/normal");
+            xhr.setRequestHeader("Content-type","application/json");
+            xhr.send(JSON.stringify({
+                title : findTitle,
+                separate : findSeparate,
+                divide : findDivide,
+                target : findTarget,
+                amount : findAmount
+            }));
+        })
+
+            // radioButton 값 찾기
+        const findIteration = (finds,number) =>{
+        let resultData;
+
+        for(let i =2; i<=number; i+=2){
+            if(finds[i].checked === true) resultData = finds[i].value;    
+        };
+    
+        return resultData;
+        }
+
+        const printAll = (posters,number) =>{
+            //지운다.
+            if(number > 0){
+                removeResult(posters);   
+            }
+
+            for(let i=0; i<posters.length; i++){
+                let tr = document.createElement("tr");
+                let td = document.createElement("td");
+                let a = document.createElement("a");
+                let image = document.createElement("img");
+
+                a.setAttribute("href",`/view/post/${posters[i].id}`);
+                image.setAttribute("src",`${posters[i].imageUrl}`);
+                image.setAttribute("class","resultImage");
+                a.appendChild(image);
+                tr.appendChild(a);
+
+                td.textContent = `${posters[i].title}`;
+                tr.appendChild(td);
+
+                td = document.createElement("td");
+                td.textContent = `${posters[i].period}`;
+                tr.appendChild(td);
+        
+                td=document.createElement("td");
+                td.textContent = `D${posters[i].d_day}`;
+                tr.appendChild(td);
+
+                result.appendChild(tr);
+            }
+            i++;
+        }
+
+        //두번째 검사 시 부터 지워짐..
+        const removeResult = (posters) =>{
+            const resultChild = result.children;
+            const resultChildLength = resultChild.length; // resultChild.length 시 위의 값 참조로 전체가 다 안지워짐...
+    
+            for(let k=1; k<resultChildLength; k++){
+                result.removeChild(resultChild[1]);
+            }
+        };
+
+        //조회 수
+        viewSort.addEventListener("click",(e)=>{
+            i++;
+            e.preventDefault();
+
+            findPosters.sort((a,b)=>{
+                return b.view - a.view;
+            });
+
+            printAll(findPosters,i);
+        })
+
+        //좋아요 수
+        goodSort.addEventListener("click",(e)=>{
+            i++;
+            e.preventDefault();
+
+            findPosters.sort((a,b)=>{
+                return b.good - a.good;
+            });
+
+            printAll(findPosters,i);
+        })
+
+        //남은 기간순
+        daySort.addEventListener("click",(e)=>{
+            i++;
+            e.preventDefault();
+
+            findPosters.sort((a,b)=>{
+                return a.d_day - b.d_day;
+            });
+
+            printAll(findPosters,i);
+        })
