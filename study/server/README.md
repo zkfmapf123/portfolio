@@ -16,9 +16,6 @@
     - [o] crud
     - [o] test
 
-- [ ] statistic
-    - [ ] study statistics
-    - [ ] entire statistics
-
-- [ ] profile
-    - [ ] test
+- [o] statistic
+    - [o] study statistics
+    - [o] entire statistics

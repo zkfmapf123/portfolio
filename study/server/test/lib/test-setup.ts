@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {DBRepo} from '../../src/common/utils/index';
 
 export namespace AuthTest {
@@ -43,5 +44,27 @@ export namespace StudyTest {
         }catch(e){
             throw e;
         }
+    }
+};
+
+export namespace StatisticTest {
+
+    export const getTodayString = () :string =>{
+        const year = moment().year();
+        const month = moment().month()+1;
+        const date = moment().date();
+
+        return `${year}${month}${date}`;
+    };
+
+    export const getPrevAndNextData = () : [string, string] =>{
+        const year = moment().year();
+        const month = moment().month()+1;
+        const date = moment().date();
+
+        const prevDate = `${year}${month-1}${date}`;
+        const nextDate = `${year}${month}${date}`;
+
+        return [prevDate, nextDate];
     }
 }

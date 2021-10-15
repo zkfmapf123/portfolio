@@ -19,5 +19,6 @@ export default {
 
   // statistics
   STATISTIC : "/statistic",
+  STATISTIC_STUDY: "/study",
   
 }
