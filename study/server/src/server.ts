@@ -1,6 +1,7 @@
 import { 
   AuthController, 
-  AuthServiceBuidler, 
+  AuthServiceBuidler,
+  StatisticController,
   StudyController,
   StudyServiceBuilder, 
   TodoController, 
@@ -14,6 +15,7 @@ import config from "./config";
       new AuthController( new AuthServiceBuidler()),
       new TodoController( new TodoServiceBuilder()),
       new StudyController( new StudyServiceBuilder()),
+      new StatisticController(),
     ],
     port: +config.port,
     dev: config.dev as "dev" | "build"

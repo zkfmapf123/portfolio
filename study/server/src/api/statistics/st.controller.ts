@@ -6,7 +6,7 @@ import routePath from '../../common/router.path';
 import {JwtRepo} from '../../lib/jwt';
 import { StatisticService } from './st.services';
 
-class StatisticController implements Controller, Decode {
+export class StatisticController implements Controller, Decode {
     path: string = routePath.STATISTIC;
     router: Router = Router();
 

@@ -13,3 +13,5 @@ export * from './studies/study.builder'
 export * from './studies/study.service';
 
 // statistics
+export * from './statistics/st.controller';
+export * from './statistics/st.services';
