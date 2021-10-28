@@ -25,7 +25,7 @@
     - Css
     - Scss
     - Javascript
-    - Banila js
+    - anila js
     - Ajax
     - Axios
 
