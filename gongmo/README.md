@@ -25,7 +25,7 @@
     - Css
     - Scss
     - Javascript
-    - anila js
+    - Vanila js
     - Ajax
     - Axios
 
