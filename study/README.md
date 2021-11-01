@@ -9,8 +9,6 @@
 
 ## Demo
 <div><a href="https://www.youtube.com/watch?v=2_A4unWW8Ig&t=1s"> 개수작 홍보 영상</a></div>
-<div><a href=""> 개수작 Front code </a></div>
-<div><a href=""> 개수작 Server code </a></div>
 
 </br>
 
